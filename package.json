@@ -1,0 +1,20 @@
+{
+  "name": "open-sus",
+  "version": "1.0.0",
+  "description": "Search for diseases and symptoms based on the health website of the government of brazil",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon --inspect ./src/index.js 3000",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "JJS4ntos",
+  "license": "MIT",
+  "dependencies": {
+    "nodemon": "^2.0.4",
+    "x-ray": "^2.3.4"
+  },
+  "devDependencies": {
+    "semantic-release": "^17.1.1"
+  }
+}

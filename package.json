@@ -3,17 +3,11 @@
   "version": "0.0.0-development",
   "description": "Search for diseases and symptoms based on the health website of the government of brazil",
   "main": "src/index.js",
-  "type": "module",
   "repositoryUrl": "https://github.com/JJS4ntos/open-sus",
   "scripts": {
     "start": "nodemon -r dotenv/config --inspect ./src/index.js 3000",
     "test": "echo \"Error: no test specified\" && exit 1",
     "semantic-release": "semantic-release"
-  },
-  "release": {
-    "plugins": [
-      "@semantic-release/commit-analyzer"
-    ]
   },
   "author": "JJS4ntos",
   "license": "MIT",
@@ -23,11 +17,25 @@
     "x-ray": "^2.3.4"
   },
   "devDependencies": {
+    "@commitlint/cli": "^9.1.2",
+    "@commitlint/config-conventional": "^9.1.2",
     "@semantic-release/commit-analyzer": "^8.0.1",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.3.0",
+    "prettier": "2.1.1",
     "semantic-release": "^17.1.1"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/JJS4ntos/open-sus.git"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "*.{js,css,md}": "prettier --write"
   }
 }

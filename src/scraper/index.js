@@ -1,7 +1,8 @@
 import Xray from "x-ray";
-import { loadDiseasesNamesFile } from "../persist/index.js";
+import { getDiseasesFile } from "../persist/index.js";
 import { symptoms } from "../templates/disease_template.js";
 import { generateSelector } from "../templates/index.js";
+import chalk from "chalk";
 
 const listDiseaseSelector =
   ".row-fluid.module.span12 .list-group-item.list-group-item-action";
@@ -17,27 +18,26 @@ const getDiseases = async (url) => {
       },
     ]);
   } catch (e) {
-    console.error(e.message);
+    console.error(chalk.red(`Erro ao buscar lista de doenças: ${e.message}`));
   }
   return result;
 };
 
 const getDiseasesSymptoms = async () => {
-  const diseases = loadDiseasesNamesFile();
+  const diseases = await getDiseasesFile();
   const data = [];
   if (diseases) {
     for (let disease of diseases) {
       const selector = generateSelector(symptoms);
-      const symptoms_result = await x(disease.url.trim(), `${selector}`, [
-        {
-          items: "li",
-        },
-      ]);
-      console.log(`${JSON.stringify(symptoms_result)} - Link fundando`);
-      data.push({
-        name: disease.title,
-        symptoms,
-      });
+      try {
+        const symptoms_result = await x(disease.url.trim(), `${selector}`);
+        data.push({
+          title: disease.title,
+          symptoms: symptoms_result.split("\n").filter((s) => s.length > 0),
+        });
+      } catch (e) {
+        console.error(chalk.red(`Erro na requisição para: ${disease.url}`));
+      }
     }
   }
   return data;

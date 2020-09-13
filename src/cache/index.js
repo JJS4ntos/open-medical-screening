@@ -1,20 +1,7 @@
-import fs from 'fs'
+import fs from "fs";
 
-const categories = [
-    'DISEASES_NAMES'
-]
+const saveFile = (fileName, fileContent) => {
+  fs.writeFileSync(fileName, fileContent);
+};
 
-const checkIfCategoryExist = (category_name) => {
-    if( !categories.includes(category_name) ) {
-        throw Error('Category not found')
-    }
-}
-
-const saveFile = async (category_name, file_content) => {
-    checkIfCategoryExist(category_name)
-    fs.writeFileSync(`${category_name}`, file_content)
-}
-
-export {
-    saveFile
-}
+export { saveFile };

@@ -1,4 +1,6 @@
-import { getDiseasesAndPersist } from "./persist/index.js";
-import { getDiseasesSymptoms } from "./scraper/index.js";
+import {
+  getDiseasesAndPersist,
+  getDiseaseSymptomAndPersist,
+} from "./persist/index.js";
 
-export { getDiseasesAndPersist, getDiseasesSymptoms };
+export { getDiseasesAndPersist, getDiseaseSymptomAndPersist };

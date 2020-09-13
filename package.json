@@ -5,14 +5,14 @@
   "main": "src/index.js",
   "repositoryUrl": "https://github.com/JJS4ntos/open-sus",
   "scripts": {
-    "start": "nodemon -r dotenv/config --inspect ./src/index.js 3000",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "semantic-release": "semantic-release"
+    "start": "nodemon -r esm --inspect ./src/index.js 3000",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "JJS4ntos",
   "license": "MIT",
   "dependencies": {
     "dotenv": "^8.2.0",
+    "esm": "^3.2.25",
     "nodemon": "^2.0.4",
     "x-ray": "^2.3.4"
   },
@@ -22,8 +22,7 @@
     "@semantic-release/commit-analyzer": "^8.0.1",
     "husky": "^4.3.0",
     "lint-staged": "^10.3.0",
-    "prettier": "2.1.1",
-    "semantic-release": "^17.1.1"
+    "prettier": "2.1.1"
   },
   "repository": {
     "type": "git",

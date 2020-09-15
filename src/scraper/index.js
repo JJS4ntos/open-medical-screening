@@ -31,10 +31,12 @@ const getDiseasesSymptoms = async () => {
       const selector = generateSelector(symptoms);
       try {
         const symptoms_result = await x(disease.url.trim(), `${selector}`);
-        data.push({
-          title: disease.title,
-          symptoms: symptoms_result.split("\n").filter((s) => s.length > 0),
-        });
+        if (symptoms_result.length > 0) {
+          data.push({
+            title: disease.title,
+            symptoms: symptoms_result.split("\n").filter((s) => s.length > 0),
+          });
+        }
       } catch (e) {
         console.error(chalk.red(`Erro na requisição para: ${disease.url}`));
       }

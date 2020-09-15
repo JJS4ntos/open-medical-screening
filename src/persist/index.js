@@ -33,13 +33,18 @@ const getDiseasesAndPersist = async () => {
 const persistSymptoms = async () => {
   const diseases = await getDiseasesFile();
   let symptoms = await getDiseasesSymptoms();
-  symptoms = symptoms.map((s) => {
-    const disease = diseases.find((d) => d.title === s.title);
-    return {
-      ...s,
-      url: disease ? disease.url : "",
-    };
-  });
+  symptoms = symptoms
+    .map((s) => {
+      const disease = diseases.find((d) => d.title === s.title);
+      if (disease) {
+        return {
+          ...s,
+          url: disease ? disease.url : "",
+        };
+      }
+      return false;
+    })
+    .filter((s) => s);
   saveFile(CACHE_LOCAL.path_file, JSON.stringify(symptoms));
 };
 

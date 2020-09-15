@@ -6,7 +6,7 @@
   "repositoryUrl": "https://github.com/JJS4ntos/open-sus",
   "scripts": {
     "start": "nodemon -r esm --inspect ./src/index.js 3000",
-    "test": ""
+    "test": "jest"
   },
   "nodemonConfig": {
     "ignore": [
@@ -27,6 +27,7 @@
     "@commitlint/cli": "^9.1.2",
     "@commitlint/config-conventional": "^9.1.2",
     "husky": "^4.3.0",
+    "jest": "^26.4.2",
     "lint-staged": "^10.3.0",
     "prettier": "2.1.1"
   },

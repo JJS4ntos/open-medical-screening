@@ -25,7 +25,13 @@ const getDiseasesFile = async () => {
 const getDiseasesAndPersist = async () => {
   const fileExistNotEmpty = await fileExistAndNotEmpty(CACHE_LOCAL.path_file);
   if (!fileExistNotEmpty) {
-    const diseases = await getDiseases(GOV_URL);
+    let diseases = await getDiseases(GOV_URL);
+    diseases.map((d, index) => {
+      return {
+        id: index,
+        ...d,
+      };
+    });
     saveFile(CACHE_LOCAL.path_file, JSON.stringify(diseases));
   }
 };
@@ -46,11 +52,12 @@ const persistSymptoms = async () => {
     })
     .filter((s) => s);
   saveFile(CACHE_LOCAL.path_file, JSON.stringify(symptoms));
+  return symptoms;
 };
 
 const getDiseaseSymptomAndPersist = async () => {
   await getDiseasesAndPersist();
-  persistSymptoms();
+  return persistSymptoms();
 };
 
 export { getDiseasesAndPersist, getDiseasesFile, getDiseaseSymptomAndPersist };

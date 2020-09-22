@@ -3,6 +3,8 @@ import {
   getDiseaseSymptomAndPersist,
 } from "./persist/index.js";
 
-getDiseaseSymptomAndPersist();
+import { ask } from "./neural-network/index.js";
+
+ask("dor de cabeça");
 
 export { getDiseasesAndPersist, getDiseaseSymptomAndPersist };

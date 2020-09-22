@@ -10,15 +10,18 @@
   },
   "nodemonConfig": {
     "ignore": [
-      "disease_cached.json"
+      "disease_cached.json",
+      "trained.json"
     ]
   },
   "author": "JJS4ntos",
   "license": "MIT",
   "dependencies": {
+    "brain.js": "^2.0.0-beta.2",
     "chalk": "^4.1.0",
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
+    "lodash": "^4.17.20",
     "nodemon": "^2.0.4",
     "ora": "^5.1.0",
     "x-ray": "^2.3.4"

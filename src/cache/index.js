@@ -4,4 +4,12 @@ const saveFile = (fileName, fileContent) => {
   fs.writeFileSync(fileName, fileContent);
 };
 
-export { saveFile };
+const loadFile = (fileName) => {
+  return fs.readFileSync(fileName, "utf8");
+};
+
+const fileExist = (fileName) => {
+  return fs.existsSync(fileName);
+};
+
+export { saveFile, loadFile, fileExist };

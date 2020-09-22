@@ -33,6 +33,7 @@ const getDiseasesSymptoms = async () => {
         const symptoms_result = await x(disease.url.trim(), `${selector}`);
         if (symptoms_result.length > 0) {
           data.push({
+            id: diseases.indexOf(disease) + 1,
             title: disease.title,
             symptoms: symptoms_result.split("\n").filter((s) => s.length > 0),
           });

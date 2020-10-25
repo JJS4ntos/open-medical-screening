@@ -33,8 +33,12 @@ Uma expressão regular é montada com base no input do usuário e uma pesquisa �
 Esta função recebe os sintomas listados ou não em uma string e retorna uma lista de objetos ordenados pela quantidade de palavras chaves encontradas.
 Por exemplo:
 
-```
-await ask('estou com manchas vermelhas na pele, bastante dor de cabeça e febre')
+```javascript
+import { ask } from 'open-medical-screening'
+
+const result = await ask('estou com manchas vermelhas na pele, bastante dor de cabeça e febre')
+
+console.log(result)
 ```
 
 retornará

@@ -1,6 +1,6 @@
 {
   "name": "open-medical-screening",
-  "version": "1.0.1",
+  "version": "0.0.1",
   "description": "Search for diseases and symptoms based on the health website of the government of brazil",
   "main": "dist/index.js",
   "repositoryUrl": "https://github.com/JJS4ntos/open-medical-screening",

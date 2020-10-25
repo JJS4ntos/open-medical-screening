@@ -6,6 +6,11 @@ Biblioteca que escava dados sobre maioria das doenças presentes no site do [Min
 
 Esta biblioteca não tem como objetivo substituir a função do médico, apenas de servir como forma de triagem com pouco/médio grau de confiabilidade.
 
+## Instalação
+``
+npm i open-medical-screening
+``
+
 ## Requisitos
 
 - Esta biblioteca funciona somente em server-side.

@@ -1,6 +1,4 @@
-//TODO: Substituir algoritmo de machine learning por busca de palavras chaves através de regex
-// /\b(\w*dor\w*)|(\w*cabeça\w*)\b/g
-import { getDiseaseSymptomAndPersist } from "../persist/index";
+import { loadDiseaseSymptomAndPersist } from "../persist/index.js";
 import { removeTrashWords } from "../config/trash_words.js";
 import _ from "lodash";
 
@@ -52,13 +50,8 @@ const detectDisease = (cleanQuestion = "", diseases) => {
 };
 
 export const ask = async (question) => {
-  let diseases = await getDiseaseSymptomAndPersist();
+  let diseases = await loadDiseaseSymptomAndPersist();
   const cleanQuestion = removeTrashWords(question);
   diseases = filterDisease(diseases);
-  const result = detectDisease(cleanQuestion, diseases);
-  console.log(
-    `Question: ${question}\n Clean Question: ${cleanQuestion}\n |----| Answer: ${JSON.stringify(
-      result
-    )}`
-  );
+  return detectDisease(cleanQuestion, diseases);
 };

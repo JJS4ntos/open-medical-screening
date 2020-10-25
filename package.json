@@ -1,9 +1,9 @@
 {
-  "name": "open-sus",
-  "version": "0.0.0-development",
+  "name": "open-medical-screening",
+  "version": "0.0.1",
   "description": "Search for diseases and symptoms based on the health website of the government of brazil",
   "main": "src/index.js",
-  "repositoryUrl": "https://github.com/JJS4ntos/open-sus",
+  "repositoryUrl": "https://github.com/JJS4ntos/open-medical-screening",
   "scripts": {
     "start": "nodemon -r esm --inspect ./src/index.js 3000",
     "test": "jest"
@@ -17,9 +17,6 @@
   "author": "JJS4ntos",
   "license": "MIT",
   "dependencies": {
-    "brain.js": "^2.0.0-beta.2",
-    "chalk": "^4.1.0",
-    "dotenv": "^8.2.0",
     "esm": "^3.2.25",
     "lodash": "^4.17.20",
     "nodemon": "^2.0.4",

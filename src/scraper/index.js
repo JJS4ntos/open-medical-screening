@@ -2,7 +2,6 @@ import Xray from "x-ray";
 import { getDiseasesFile } from "../persist/index.js";
 import { symptoms } from "../templates/disease_template.js";
 import { generateSelector } from "../templates/index.js";
-import chalk from "chalk";
 
 const listDiseaseSelector =
   ".row-fluid.module.span12 .list-group-item.list-group-item-action";
@@ -26,7 +25,6 @@ const getDiseases = async (url) => {
 const getDiseasesSymptoms = async () => {
   const { diseases, symptomsLoaded } = await getDiseasesFile();
   if (!symptomsLoaded) {
-    console.log(`requisitando...`);
     const data = [];
     for (let disease of diseases) {
       const selector = generateSelector(symptoms);
@@ -40,7 +38,7 @@ const getDiseasesSymptoms = async () => {
           });
         }
       } catch (e) {
-        console.error(chalk.red(`Erro na requisição para: ${disease.url}`));
+        console.error(`Erro na requisição para: ${disease.url}`);
       }
     }
     return data;

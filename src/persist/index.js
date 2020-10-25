@@ -6,14 +6,6 @@ import { CACHE_LOCAL } from "../config/variables.js";
 
 const fileExistAndNotEmpty = async (fileName) => {
   const fileExist = await fs.existsSync(fileName);
-  /*let hasContentFile = false;
-  let object = [];
-  if (fileExist) {
-    const stats = await fs.statSync(fileName);
-    hasContentFile = stats.size > 0;
-    object = JSON.parse(fs.readFileSync(fileName, "utf8"));
-  }
-  return fileExist && hasContentFile && object.length > 0;*/
   return fileExist;
 };
 
@@ -23,10 +15,9 @@ const getDiseasesFile = async () => {
   return fileObject;
 };
 
-const getDiseasesAndPersist = async () => {
+const loadDiseasesAndPersist = async () => {
   const fileExistNotEmpty = await fileExistAndNotEmpty(CACHE_LOCAL.path_file);
   if (!fileExistNotEmpty) {
-    console.log("recriando disease file");
     let diseases = await getDiseases(GOV_URL);
     diseases.map((d, index) => {
       return {
@@ -67,9 +58,13 @@ const persistSymptoms = async () => {
   }
 };
 
-const getDiseaseSymptomAndPersist = async () => {
-  await getDiseasesAndPersist();
+const loadDiseaseSymptomAndPersist = async () => {
+  await loadDiseasesAndPersist();
   return persistSymptoms();
 };
 
-export { getDiseasesAndPersist, getDiseasesFile, getDiseaseSymptomAndPersist };
+export {
+  loadDiseasesAndPersist,
+  getDiseasesFile,
+  loadDiseaseSymptomAndPersist,
+};

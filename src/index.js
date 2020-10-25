@@ -1,5 +1,7 @@
+import "core-js/stable";
+import "regenerator-runtime/runtime";
 import { ask } from "./doctor/index.js";
-import { removeTrashWords, trashWords } from "./config/trash_words.js";
+import { removeTrashWords } from "./config/trash_words.js";
 import {
   getDiseasesFile,
   loadDiseaseSymptomAndPersist,
@@ -8,7 +10,6 @@ import {
 module.exports = {
   ask,
   removeTrashWords,
-  trashWords,
   getDiseasesFile,
   loadDiseaseSymptomAndPersist,
 };

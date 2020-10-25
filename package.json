@@ -1,6 +1,6 @@
 {
   "name": "open-medical-screening",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Search for diseases and symptoms based on the health website of the government of brazil",
   "main": "dist/index.js",
   "repositoryUrl": "https://github.com/JJS4ntos/open-medical-screening",
@@ -18,10 +18,12 @@
   "author": "JJS4ntos",
   "license": "MIT",
   "dependencies": {
+    "core-js": "^3.6.5",
     "esm": "^3.2.25",
     "lodash": "^4.17.20",
     "nodemon": "^2.0.4",
     "ora": "^5.1.0",
+    "regenerator-runtime": "^0.13.7",
     "x-ray": "^2.3.4"
   },
   "devDependencies": {
@@ -31,6 +33,11 @@
     "@babel/preset-env": "^7.12.1",
     "@commitlint/cli": "^9.1.2",
     "@commitlint/config-conventional": "^9.1.2",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.1.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
     "husky": "^4.3.0",
     "jest": "^26.4.2",
     "lint-staged": "^10.3.0",

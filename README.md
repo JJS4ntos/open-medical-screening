@@ -1,3 +1,5 @@
+![Image of Open-medical-screening](https://raw.githubusercontent.com/JJS4ntos/open-medical-screening/master/search.png)
+
 # Open-medical-screening
 
 Biblioteca que escava dados sobre maioria das doenças presentes no site do [Ministério da Saúde](https://www.gov.br/saude/pt-br) e utiliza esses dados para detectar palavras chaves em um determinado input de texto.

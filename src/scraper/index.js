@@ -18,15 +18,16 @@ const getDiseases = async (url) => {
       },
     ]);
   } catch (e) {
-    console.error(chalk.red(`Erro ao buscar lista de doenças: ${e.message}`));
+    console.log(`Erro ao buscar lista de doenças: ${e.message}`);
   }
   return result;
 };
 
 const getDiseasesSymptoms = async () => {
-  const diseases = await getDiseasesFile();
-  const data = [];
-  if (diseases) {
+  const { diseases, symptomsLoaded } = await getDiseasesFile();
+  if (!symptomsLoaded) {
+    console.log(`requisitando...`);
+    const data = [];
     for (let disease of diseases) {
       const selector = generateSelector(symptoms);
       try {
@@ -42,8 +43,10 @@ const getDiseasesSymptoms = async () => {
         console.error(chalk.red(`Erro na requisição para: ${disease.url}`));
       }
     }
+    return data;
+  } else {
+    return diseases;
   }
-  return data;
 };
 
 export { getDiseases, getDiseasesSymptoms };

@@ -1,6 +1,7 @@
 //TODO: Substituir algoritmo de machine learning por busca de palavras chaves através de regex
 // /\b(\w*dor\w*)|(\w*cabeça\w*)\b/g
 import { getDiseaseSymptomAndPersist } from "../persist/index";
+import { removeTrashWords } from "../config/trash_words.js";
 import _ from "lodash";
 
 const filterDisease = (diseases) => {
@@ -20,26 +21,44 @@ const filterDisease = (diseases) => {
   });
 };
 
-export const ask = async (question) => {
-  const diseases = await getDiseaseSymptomAndPersist();
-  const words = question.replace(/([.,;"()“”])/g, "").split(" ");
-
+const detectDisease = (cleanQuestion = "", diseases) => {
+  const words = cleanQuestion.replace(/([.,;"()“”])/g, "").split(" ");
   const regexWords = words.map((word, index) => {
     return `\\b(${word})\\b`;
   });
 
-  console.log(`${regexWords.join("|")}/g`);
+  //console.log(`${regexWords.join("|")}/g`);
 
   const regex = new RegExp(`${regexWords.join("|")}`, "g");
 
-  console.log(regex);
+  //console.log(regex);
 
-  const result = diseases.filter((d) => {
+  const matches = [];
+
+  diseases.forEach((d) => {
     const match = d.symptoms
       .join(" ")
-      .replace(/([.,;"()“”])/g, "")
+      .replace(/([.,;"()“”])/g, "") // ponto crítico da aplicação, onde a decisão é tomada
       .match(regex);
-    return match && match.length;
+    if (match && match.length > 0) {
+      matches.push({
+        disease_name: d.title,
+        match_count: match.length,
+      });
+    }
   });
-  console.log(`Question: ${question} |----| Answer: ${JSON.stringify(result)}`);
+
+  return _.orderBy(matches, ["match_count"], ["desc"]);
+};
+
+export const ask = async (question) => {
+  let diseases = await getDiseaseSymptomAndPersist();
+  const cleanQuestion = removeTrashWords(question);
+  diseases = filterDisease(diseases);
+  const result = detectDisease(cleanQuestion, diseases);
+  console.log(
+    `Question: ${question}\n Clean Question: ${cleanQuestion}\n |----| Answer: ${JSON.stringify(
+      result
+    )}`
+  );
 };

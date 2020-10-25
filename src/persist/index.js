@@ -6,14 +6,15 @@ import { CACHE_LOCAL } from "../config/variables.js";
 
 const fileExistAndNotEmpty = async (fileName) => {
   const fileExist = await fs.existsSync(fileName);
-  let hasContentFile = false;
+  /*let hasContentFile = false;
   let object = [];
   if (fileExist) {
     const stats = await fs.statSync(fileName);
     hasContentFile = stats.size > 0;
     object = JSON.parse(fs.readFileSync(fileName, "utf8"));
   }
-  return fileExist && hasContentFile && object.length > 0;
+  return fileExist && hasContentFile && object.length > 0;*/
+  return fileExist;
 };
 
 const getDiseasesFile = async () => {
@@ -25,6 +26,7 @@ const getDiseasesFile = async () => {
 const getDiseasesAndPersist = async () => {
   const fileExistNotEmpty = await fileExistAndNotEmpty(CACHE_LOCAL.path_file);
   if (!fileExistNotEmpty) {
+    console.log("recriando disease file");
     let diseases = await getDiseases(GOV_URL);
     diseases.map((d, index) => {
       return {
@@ -32,27 +34,37 @@ const getDiseasesAndPersist = async () => {
         ...d,
       };
     });
-    saveFile(CACHE_LOCAL.path_file, JSON.stringify(diseases));
+    saveFile(
+      CACHE_LOCAL.path_file,
+      JSON.stringify({ diseases, symptomsLoaded: false })
+    );
   }
 };
 
 const persistSymptoms = async () => {
-  const diseases = await getDiseasesFile();
-  let symptoms = await getDiseasesSymptoms();
-  symptoms = symptoms
-    .map((s) => {
-      const disease = diseases.find((d) => d.title === s.title);
-      if (disease) {
-        return {
-          ...s,
-          url: disease ? disease.url : "",
-        };
-      }
-      return false;
-    })
-    .filter((s) => s);
-  saveFile(CACHE_LOCAL.path_file, JSON.stringify(symptoms));
-  return symptoms;
+  const { diseases, symptomsLoaded } = await getDiseasesFile();
+  if (symptomsLoaded) {
+    return diseases;
+  } else {
+    let symptoms = await getDiseasesSymptoms();
+    symptoms = symptoms
+      .map((s) => {
+        const disease = diseases.find((d) => d.title === s.title);
+        if (disease) {
+          return {
+            ...s,
+            url: disease ? disease.url : "",
+          };
+        }
+        return false;
+      })
+      .filter((s) => s);
+    saveFile(
+      CACHE_LOCAL.path_file,
+      JSON.stringify({ diseases: symptoms, symptomsLoaded: true })
+    );
+    return symptoms;
+  }
 };
 
 const getDiseaseSymptomAndPersist = async () => {

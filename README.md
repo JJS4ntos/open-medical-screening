@@ -1,3 +1,5 @@
+![Image of Open-medical-screening](https://raw.githubusercontent.com/JJS4ntos/open-medical-screening/master/search.png)
+
 # Open-medical-screening
 
 Biblioteca que escava dados sobre maioria das doenças presentes no site do [Ministério da Saúde](https://www.gov.br/saude/pt-br) e utiliza esses dados para detectar palavras chaves em um determinado input de texto.
@@ -31,8 +33,12 @@ Uma expressão regular é montada com base no input do usuário e uma pesquisa �
 Esta função recebe os sintomas listados ou não em uma string e retorna uma lista de objetos ordenados pela quantidade de palavras chaves encontradas.
 Por exemplo:
 
-```
-await ask('estou com manchas vermelhas na pele, bastante dor de cabeça e febre')
+```javascript
+import { ask } from 'open-medical-screening'
+
+const result = await ask('estou com manchas vermelhas na pele, bastante dor de cabeça e febre')
+
+console.log(result)
 ```
 
 retornará

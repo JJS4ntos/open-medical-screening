@@ -503,10 +503,13 @@ const trashWords = [
 ];
 
 const removeTrashWords = (text) => {
-  return text
-    .split(" ")
-    .filter((word) => !trashWords.includes(word))
-    .join(" ");
+  if (text) {
+    return text
+      .split(" ")
+      .filter((word) => !trashWords.includes(word))
+      .join(" ");
+  }
+  return [];
 };
 
 export { removeTrashWords, trashWords };

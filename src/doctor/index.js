@@ -34,14 +34,17 @@ const detectDisease = (cleanQuestion = "", diseases) => {
   const matches = [];
 
   diseases.forEach((d) => {
-    const match = d.symptoms
+    const words_match = d.symptoms
       .join(" ")
       .replace(/([.,;"()“”])/g, "") // ponto crítico da aplicação, onde a decisão é tomada
       .match(regex);
-    if (match && match.length > 0) {
+    if (words_match && words_match.length > 0) {
+      const match = _.uniq(words_match);
       matches.push({
         disease_name: d.title,
+        symptoms: d.symptoms,
         match_count: match.length,
+        match_words: match,
       });
     }
   });

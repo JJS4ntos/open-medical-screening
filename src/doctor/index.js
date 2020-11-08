@@ -27,7 +27,7 @@ const detectDisease = (cleanQuestion = "", diseases) => {
 
   //console.log(`${regexWords.join("|")}/g`);
 
-  const regex = new RegExp(`${regexWords.join("|")}`, "g");
+  const regex = new RegExp(`${regexWords.join("|")}`, "gi");
 
   //console.log(regex);
 

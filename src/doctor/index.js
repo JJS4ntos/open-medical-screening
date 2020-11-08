@@ -53,8 +53,9 @@ const detectDisease = (cleanQuestion = "", diseases) => {
 };
 
 export const ask = async (question) => {
+  const lowerQuestion = question.toLowerCase();
   let diseases = await loadDiseaseSymptomAndPersist();
-  const cleanQuestion = removeTrashWords(question);
+  const cleanQuestion = removeTrashWords(lowerQuestion);
   diseases = filterDisease(diseases);
   return detectDisease(cleanQuestion, diseases);
 };

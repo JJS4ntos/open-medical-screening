@@ -1,10 +1,10 @@
-import { getDiseases, getDiseasesSymptoms } from "../scraper/index.js";
-import { saveFile } from "../cache/index.js";
-import { GOV_URL } from "../config/variables.js";
+import { getDiseases, getDiseasesSymptoms } from "../scraper";
+import { saveFile } from "../cache";
+import { GOV_URL, CACHE_LOCAL } from "../config/variables";
 import fs from "fs";
-import { CACHE_LOCAL } from "../config/variables.js";
+import { Disease, SimpleDisease } from "../doctor";
 
-const fileExistAndNotEmpty = async (fileName) => {
+const fileExistAndNotEmpty = async (fileName: string) => {
   const fileExist = await fs.existsSync(fileName);
   return fileExist;
 };
@@ -19,7 +19,7 @@ const loadDiseasesAndPersist = async () => {
   const fileExistNotEmpty = await fileExistAndNotEmpty(CACHE_LOCAL.path_file);
   if (!fileExistNotEmpty) {
     let diseases = await getDiseases(GOV_URL);
-    diseases.map((d, index) => {
+    diseases.map((d: Disease, index: number) => {
       return {
         id: index,
         ...d,
@@ -39,8 +39,8 @@ const persistSymptoms = async () => {
   } else {
     let symptoms = await getDiseasesSymptoms();
     symptoms = symptoms
-      .map((s) => {
-        const disease = diseases.find((d) => d.title === s.title);
+      .map((s: any) => {
+        const disease = diseases.find((d: SimpleDisease) => d.title === s.title);
         if (disease) {
           return {
             ...s,
@@ -49,7 +49,7 @@ const persistSymptoms = async () => {
         }
         return false;
       })
-      .filter((s) => s);
+      .filter((s: any) => s);
     saveFile(
       CACHE_LOCAL.path_file,
       JSON.stringify({ diseases: symptoms, symptomsLoaded: true })

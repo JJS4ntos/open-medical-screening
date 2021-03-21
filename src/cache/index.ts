@@ -1,14 +1,14 @@
 import fs from "fs";
 
-const saveFile = (fileName, fileContent) => {
+const saveFile = (fileName: string, fileContent: any) => {
   fs.writeFileSync(fileName, fileContent);
 };
 
-const loadFile = (fileName) => {
+const loadFile = (fileName: string) => {
   return fs.readFileSync(fileName, "utf8");
 };
 
-const fileExist = (fileName) => {
+const fileExist = (fileName: string) => {
   return fs.existsSync(fileName);
 };
 

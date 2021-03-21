@@ -1,11 +1,11 @@
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-import { ask } from "./doctor/index.js";
-import { removeTrashWords } from "./config/trash_words.js";
+import { ask } from "./doctor";
+import { removeTrashWords } from "./config/trash_words";
 import {
   getDiseasesFile,
   loadDiseaseSymptomAndPersist,
-} from "./persist/index.js";
+} from "./persist";
 
 module.exports = {
   ask,

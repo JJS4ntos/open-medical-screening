@@ -1,4 +1,4 @@
-const generateSelector = (template) => {
+const generateSelector = (template: any) => {
   let selector = `${template.selector}`;
   if (template.texts && template.texts.length > 0) {
     selector = generateTextContainSelector(template);
@@ -6,10 +6,10 @@ const generateSelector = (template) => {
   return selector;
 };
 
-const generateTextContainSelector = (template) => {
+const generateTextContainSelector = (template: any) => {
   return template.texts
     .map(
-      (t) =>
+      (t: string) =>
         `${template.selector}:contains('${t}') ${
           template.inject ? template.inject : ""
         }`

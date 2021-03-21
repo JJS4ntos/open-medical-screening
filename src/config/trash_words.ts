@@ -502,14 +502,14 @@ const trashWords = [
   ...others,
 ];
 
-const removeTrashWords = (text) => {
+const removeTrashWords = (text: string) => {
   if (text) {
     return text
       .split(" ")
       .filter((word) => !trashWords.includes(word))
       .join(" ");
   }
-  return [];
+  return "";
 };
 
 export { removeTrashWords, trashWords };

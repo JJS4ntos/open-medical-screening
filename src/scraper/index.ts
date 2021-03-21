@@ -1,13 +1,13 @@
 import Xray from "x-ray";
-import { getDiseasesFile } from "../persist/index.js";
-import { symptoms } from "../templates/disease_template.js";
-import { generateSelector } from "../templates/index.js";
+import { getDiseasesFile } from "../persist";
+import { symptoms } from "../templates/disease_template";
+import { generateSelector } from "../templates/index";
 
 const listDiseaseSelector =
   ".row-fluid.module.span12 .list-group-item.list-group-item-action";
 const x = Xray();
 
-const getDiseases = async (url) => {
+const getDiseases = async (url: string) => {
   let result;
   try {
     result = x(url, listDiseaseSelector, [
@@ -34,7 +34,7 @@ const getDiseasesSymptoms = async () => {
           data.push({
             id: diseases.indexOf(disease) + 1,
             title: disease.title,
-            symptoms: symptoms_result.split("\n").filter((s) => s.length > 0),
+            symptoms: symptoms_result.split("\n").filter((s: string) => s.length > 0),
           });
         }
       } catch (e) {

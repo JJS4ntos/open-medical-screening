@@ -1,8 +1,19 @@
-import { loadDiseaseSymptomAndPersist } from "../persist/index.js";
-import { removeTrashWords } from "../config/trash_words.js";
+import { loadDiseaseSymptomAndPersist } from "../persist";
+import { removeTrashWords } from "../config/trash_words";
 import _ from "lodash";
 
-const filterDisease = (diseases) => {
+export interface SimpleDisease {
+  title: string;
+}
+
+export interface Disease {
+  title: string;
+  symptoms: string[];
+  match_count: number;
+  match_words: string[];
+}
+
+const filterDisease = (diseases: SimpleDisease[]) => {
   return diseases.filter((d) => {
     const t = d.title;
     return (
@@ -19,7 +30,7 @@ const filterDisease = (diseases) => {
   });
 };
 
-const detectDisease = (cleanQuestion = "", diseases) => {
+const detectDisease = (cleanQuestion = "", diseases: Disease[]) => {
   const words = cleanQuestion.replace(/([.,;"()“”])/g, "").split(" ");
   const regexWords = words.map((word, index) => {
     return `\\b(${word})\\b`;
@@ -31,9 +42,9 @@ const detectDisease = (cleanQuestion = "", diseases) => {
 
   //console.log(regex);
 
-  const matches = [];
+  const matches: Disease[] = [];
 
-  diseases.forEach((d) => {
+  diseases.forEach(d => {
     const words_match = d.symptoms
       .join(" ")
       .replace(/([.,;"()“”])/g, "") // ponto crítico da aplicação, onde a decisão é tomada
@@ -41,7 +52,7 @@ const detectDisease = (cleanQuestion = "", diseases) => {
     if (words_match && words_match.length > 0) {
       const match = _.uniq(words_match);
       matches.push({
-        disease_name: d.title,
+        title: d.title,
         symptoms: d.symptoms,
         match_count: match.length,
         match_words: match,
@@ -52,7 +63,7 @@ const detectDisease = (cleanQuestion = "", diseases) => {
   return _.orderBy(matches, ["match_count"], ["desc"]);
 };
 
-export const ask = async (question) => {
+export const ask = async (question: string) => {
   const lowerQuestion = question.toLowerCase();
   let diseases = await loadDiseaseSymptomAndPersist();
   const cleanQuestion = removeTrashWords(lowerQuestion);

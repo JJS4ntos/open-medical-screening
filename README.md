@@ -2,6 +2,7 @@
 
 # Open-medical-screening
 [![Node.js Package](https://github.com/JJS4ntos/open-medical-screening/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/JJS4ntos/open-medical-screening/actions/workflows/npm-publish.yml)
+[![Build Status](https://travis-ci.org/JJS4ntos/open-medical-screening.svg?branch=master)](https://travis-ci.org/JJS4ntos/open-medical-screening)
 
 Biblioteca que escava dados sobre maioria das doenças presentes no site do [Ministério da Saúde](https://www.gov.br/saude/pt-br) e utiliza esses dados para detectar palavras chaves em um determinado input de texto.
 

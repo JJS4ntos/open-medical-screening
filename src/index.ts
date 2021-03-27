@@ -6,6 +6,9 @@ import {
   getDiseasesFile,
   loadDiseaseSymptomAndPersist,
 } from "./persist";
+import { train } from './ai'
+
+train()
 
 module.exports = {
   ask,

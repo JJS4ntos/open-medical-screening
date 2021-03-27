@@ -7,13 +7,14 @@ export interface SimpleDisease {
 }
 
 export interface Disease {
+  id?: string;
   title: string;
   symptoms: string[];
-  match_count: number;
-  match_words: string[];
+  match_count?: number;
+  match_words?: string[];
 }
 
-const filterDisease = (diseases: SimpleDisease[]) => {
+export const filterDisease = (diseases: SimpleDisease[]) => {
   return diseases.filter((d) => {
     const t = d.title;
     return (

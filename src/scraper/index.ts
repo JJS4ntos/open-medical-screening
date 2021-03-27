@@ -2,6 +2,7 @@ import Xray from "x-ray";
 import { getDiseasesFile } from "../persist";
 import { symptoms } from "../templates/disease_template";
 import { generateSelector } from "../templates/index";
+import { Disease } from "../doctor";
 
 const listDiseaseSelector =
   ".row-fluid.module.span12 .list-group-item.list-group-item-action";
@@ -22,7 +23,7 @@ const getDiseases = async (url: string) => {
   return result;
 };
 
-const getDiseasesSymptoms = async () => {
+const getDiseasesSymptoms = async ():Promise<Disease[]> => {
   const { diseases, symptomsLoaded } = await getDiseasesFile();
   if (!symptomsLoaded) {
     const data = [];
